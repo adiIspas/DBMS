@@ -115,12 +115,29 @@ END;
 /
 
  --- ||| ---
- 
+
 BEGIN
 
-for contor in 0..10 loop
+for contor in 0..10 loop -- REVERSE
 DBMS_OUTPUT.PUT_LINE(contor);
 end loop;
 
 END;
+/
+
+<<bloc_1>>
+declare
+v1 number(10):=5;
+begin
+v1:=10;
+
+<<bloc_2>>
+declare
+v1 varchar2(30);
+begin
+v1:='test';
+DBMS_OUTPUT.PUT_LINE('Bloc 2 ' || v1 || ' ' || bloc_1.v1);
+end;
+DBMS_OUTPUT.PUT_LINE('Bloc 1 ' || v1 || ' ');
+end;
 /
