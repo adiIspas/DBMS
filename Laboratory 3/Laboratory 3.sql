@@ -141,3 +141,35 @@ end;
 DBMS_OUTPUT.PUT_LINE('Bloc 1 ' || v1 || ' ');
 end;
 /
+
+
+------------- ||||||||||||||||||||| -------------
+
+
+CREATE TABLE octombrie_isp(id number(10), data date);
+
+DECLARE
+v_nr number(10);
+contor date := TO_DATE('01-10-2016','dd-mm-yyyy');
+v_cod number(10);
+BEGIN
+
+loop
+select count(*) 
+into v_nr
+from rental
+where book_date like contor;
+
+v_cod := contor - TO_DATE('01-10-2016','dd-mm-yyyy');
+
+insert into octombrie_isp VALUES(v_cod, contor);
+DBMS_OUTPUT.PUT_LINE('Data: ' || contor || ' Numar imprumuturi: ' || v_nr);
+contor := contor + 1;
+exit when contor > TO_DATE('31-10-2016','dd-mm-yyyy');
+end loop;
+
+
+END;
+/
+
+drop table octombrie_isp;
