@@ -160,11 +160,11 @@ nested table orase store as orase_excursii_ysp;
 INSERT INTO excursii_ysp
 VALUES(1, 'marte', tip_orase_ysp('musk', 'spacex', 'tesla'));
 INSERT INTO excursii_ysp
-VALUES(2, ‘marte’, tip_orase_ysp(‘PAYPAL’, ‘x-city’));
+VALUES(2, 'marte', tip_orase_ysp('PAYPAL', 'x-city'));
 INSERT INTO excursii_ysp
-VALUES(3, ‘pluto’, tip_orase_ysp(‘mickey’, ‘mouse’));
+VALUES(3, 'pluto', tip_orase_ysp('mickey', 'mouse'));
 INSERT INTO excursii_ysp
-VALUES(4, ‘B12’, tip_orase_ysp(‘new city’, ‘london-12’, ‘dubay-b-12’));
+VALUES(4, 'B12', tip_orase_ysp('new city', 'london-12', 'dubay-b-12'));
 INSERT INTO excursii_ysp
-VALUES(5, ‘california’, tip_orase_ysp(‘miami’, ‘san francisco’, ‘palo alto’));
+VALUES(5, 'california', tip_orase_ysp('miami', 'san francisco', 'palo alto'));
 
