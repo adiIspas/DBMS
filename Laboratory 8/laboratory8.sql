@@ -227,9 +227,36 @@ SELECT *
 FROM USER_SOURCE
 WHERE UPPER(NAME)='AFISEAZA_MANAGER_YSP';
 
-CREATE OR REPLACE TYPE v_tab IS VARRAY(500) OF VARCHAR2(500);
+CREATE OR REPLACE TYPE v_tab_ysp IS VARRAY(500) OF VARCHAR2(500);
 /
 
-CREATE TABLE info_ysp(utilizator varchar2(50), data DATE, comanda)
+CREATE TABLE info_ysp(utilizator varchar2(50), data DATE, comanda v_tab_ysp, nr_linii NUMBER(3), eroare VARCHAR2(100));
+
+
+CREATE OR REPLACE PROCEDURE afiseaza_manager_ysp(cod IN OUT employees.employee_id%TYPE)
+IS
+BEGIN
+SELECT manager_id
+INTO cod
+FROM employees
+WHERE employee_id=cod;
+
+
+EXCEPTION
+WHEN NO_DATA_FOUND THEN cod:=-20001;
+WHEN OTHERS THEN cod:=-20002;
+END;
+/ 
+DECLARE
+v_cod employees.employee_id%TYPE:=105;
+BEGIN
+SELECT USER
+INTO v_user
+FROM dual;
+afiseaza_manager_ysp(v_cod);
+DBMS_OUTPUT.PUT_LINE(v_cod);
+END;
+/
+
 
 show errors
