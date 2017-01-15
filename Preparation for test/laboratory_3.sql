@@ -190,7 +190,7 @@ BEGIN
   LOOP
     FETCH v_emp INTO v_rand; 
     EXIT WHEN v_emp%NOTFOUND; 
-    DBMS_OUTPUT.PUT_LINE(v_ang.last_name);
+    DBMS_OUTPUT.PUT_LINE(v_rand.employee_id);
   END LOOP;
 END; 
 /
