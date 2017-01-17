@@ -32,42 +32,60 @@ END;
 BEGIN
   p_1_a('Cereale');
 END;
-
+/
 -- Exercitiul 2
 ALTER TABLE teren_agricol_ysp
 ADD suprafata_totala NUMBER(5);
+/
 
 UPDATE teren_agricol_ysp teren
 SET suprafata_totala = (SELECT SUM(suprafata) FROM parcela_ysp WHERE teren.id_teren = cod_teren GROUP BY cod_teren);
+/
 
 SELECT * FROM teren_agricol_ysp;
 SELECT * FROM parcela_ysp; 
 SELECT SUM(suprafata), cod_teren FROM parcela_ysp GROUP BY cod_teren;
+/
 
 CREATE OR REPLACE TRIGGER tr_2_b_ysp
   BEFORE INSERT OR UPDATE OR DELETE OF suprafata ON parcela_ysp FOR EACH ROW
   BEGIN
     IF INSERTING THEN
       UPDATE teren_agricol_ysp
-      SET suprafata_totala = suprafata_totala + :NEW.suprafata;
+      SET suprafata_totala = suprafata_totala + :NEW.suprafata
+      WHERE id_teren = :NEW.cod_teren;
     ELSIF UPDATING THEN
       UPDATE teren_agricol_ysp
-      SET suprafata_totala = suprafata_totala - :OLD.suprafata + :NEW.suprafata;
+      SET suprafata_totala = suprafata_totala - :OLD.suprafata + :NEW.suprafata
+      WHERE id_teren = :OLD.cod_teren;
     ELSE
       UPDATE teren_agricol_ysp
-      SET suprafata_totala = suprafata_totala - :OLD.suprafata;
+      SET suprafata_totala = suprafata_totala - :OLD.suprafata
+      WHERE id_teren = :OLD.cod_teren;
     END IF;
 END;
+/
 
 DROP TRIGGER tr_2_b_ysp;
 
 DELETE FROM parcela_ysp
 WHERE id_parcela = 100;
+/
 
 UPDATE parcela_ysp
-SET suprafata = 60
+SET suprafata = 70
 WHERE id_parcela = 100;
+/
 
-INSERT INTO parcela_ysp VALUES(2000,'P20',50,100);
+INSERT INTO parcela_ysp VALUES(2000,'P21',50,100);
+/
 
+update parcela_ysp
+set suprafata = 550
+where id_parcela = 100;
+/
 ROLLBACK;
+/
+
+SELECT *
+FROM teren_agricol_ysp;
